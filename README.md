@@ -31,7 +31,24 @@ CREATE TABLE `t_user` (
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4;
 ```
 
+## 2.2 记忆库表（t_memory_library）
 
+```sql
+-- ----------------------------
+-- Table structure for t_memory_library
+-- ----------------------------
+
+CREATE TABLE `t_memory_library` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键，自增',
+  `user_id` bigint(20) NOT NULL COMMENT '所属用户ID',
+  `name` varchar(255) NOT NULL COMMENT '记忆库名称',
+  `description` varchar(512) DEFAULT NULL COMMENT '记忆库描述',
+  `created_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+  `updated_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  PRIMARY KEY (`id`),
+  KEY `idx_user_id` (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='记忆库表';
+```
 
 ## 2.2 文章表（t_articles）
 
@@ -54,7 +71,7 @@ CREATE TABLE `t_articles` (
 
 
 
-## 2.3 文章记忆表(t_article_memory)
+## 2.4 文章记忆表(t_article_memory)
 
 ```sql
 -- ----------------------------
@@ -72,8 +89,7 @@ CREATE TABLE `t_article_memory` (
   `created_time` datetime DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间，自动更新',
   `updated_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间，自动更新',
   PRIMARY KEY (`id`),
-  KEY `article_id` (`article_id`),
-  CONSTRAINT `t_article_memory_ibfk_1` FOREIGN KEY (`article_id`) REFERENCES `t_articles` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `article_id` (`article_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='文章记忆表';
 ```
 
