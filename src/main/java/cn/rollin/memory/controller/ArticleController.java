@@ -1,10 +1,12 @@
 package cn.rollin.memory.controller;
 
 import cn.rollin.memory.common.res.Response;
+import cn.rollin.memory.common.utils.UserContext;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import cn.rollin.memory.pojo.Article;
 import cn.rollin.memory.service.IArticleService;
+import cn.rollin.memory.service.impl.MemoryLibraryServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -12,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
  * 文章Controller
  *
  * @author rollin
- * @date 2024-03-29 15:28:55
+ * @date 2025-03-29 17:11:32
  */
 @RestController
 @RequestMapping("/article")
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 public class ArticleController {
 
     private final IArticleService articleService;
+    private final MemoryLibraryServiceImpl memoryLibraryService;
 
     /**
      * 创建文章
@@ -29,7 +32,15 @@ public class ArticleController {
      */
     @PostMapping
     public Response<Article> create(@RequestBody Article article) {
+        // 获取当前用户ID
+        Long userId = UserContext.getUser().getId();
+        article.setUserId(userId);
+        // 保存文章
         articleService.save(article);
+
+        // 创建文章记忆记录
+        memoryLibraryService.updateOrInsertArticleMemory(article.getId(), userId, "重来");
+
         return Response.buildSuccess(article);
     }
 

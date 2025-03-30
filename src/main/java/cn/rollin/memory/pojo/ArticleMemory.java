@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * 文章记忆实体类
  *
  * @author rollin
- * @date 2024-03-29 15:28:55
+ * @date 2025-03-29 17:11:32
  */
 @Data
 @TableName("t_article_memory")

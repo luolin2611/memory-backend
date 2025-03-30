@@ -1,12 +1,15 @@
 package cn.rollin.memory.controller;
 
 import cn.rollin.memory.common.res.Response;
+import cn.rollin.memory.common.utils.UserContext;
 import cn.rollin.memory.service.IMemoryLibraryService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import cn.rollin.memory.pojo.MemoryLibrary;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * 记忆库Controller
@@ -29,6 +32,7 @@ public class MemoryLibraryController {
      */
     @PostMapping
     public Response<MemoryLibrary> create(@RequestBody MemoryLibrary memoryLibrary) {
+        memoryLibrary.setUserId(UserContext.getUser().getId());
         memoryLibraryService.save(memoryLibrary);
         return Response.buildSuccess(memoryLibrary);
     }
@@ -85,5 +89,17 @@ public class MemoryLibraryController {
         LambdaQueryWrapper<MemoryLibrary> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(MemoryLibrary::getUserId, userId);
         return Response.buildSuccess(memoryLibraryService.page(pageInfo, queryWrapper));
+    }
+
+    /**
+     * 查询记忆库列表
+     *
+     * @return 查询结果
+     */
+    @GetMapping("/list")
+    public Response<List<MemoryLibrary>> list() {
+        LambdaQueryWrapper<MemoryLibrary> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(MemoryLibrary::getUserId, UserContext.getUser().getId());
+        return Response.buildSuccess(memoryLibraryService.list(queryWrapper));
     }
 }

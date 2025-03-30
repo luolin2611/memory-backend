@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
  * 文章实体类
  *
  * @author rollin
- * @date 2024-03-29 15:28:55
+ * @date 2025-03-29 17:11:32
  */
 @Data
 @TableName("t_articles")
@@ -27,6 +27,11 @@ public class Article {
      * 用户ID
      */
     private Long userId;
+
+    /**
+     * 所属记忆库ID
+     */
+    private Long libraryId;
 
     /**
      * 文章标题

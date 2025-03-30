@@ -60,6 +60,7 @@ CREATE TABLE `t_memory_library` (
 CREATE TABLE `t_articles` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '主键，自增',
   `user_id` bigint(20) DEFAULT NULL COMMENT '用户id',
+  `library_id` bigint(20) DEFAULT NULL COMMENT '所属记忆库ID',
   `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '标题，必填',
   `content` text COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '内容，必填',
   `mnemonic` text COLLATE utf8mb4_unicode_ci COMMENT '助记，非必填',

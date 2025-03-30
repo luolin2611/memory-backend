@@ -6,6 +6,7 @@
     <resultMap id="BaseResultMap" type="cn.rollin.memory.pojo.Article">
         <id column="id" property="id"/>
         <result column="user_id" property="userId"/>
+        <result column="library_id" property="libraryId"/>
         <result column="title" property="title"/>
         <result column="content" property="content"/>
         <result column="mnemonic" property="mnemonic"/>
@@ -15,7 +16,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, user_id, title, content, mnemonic, created_time, updated_time
+        id, user_id, library_id, title, content, mnemonic, created_time, updated_time
     </sql>
 
 </mapper>

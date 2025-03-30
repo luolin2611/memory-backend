@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
  * 文章Mapper接口
  *
  * @author rollin
- * @date 2024-03-29 15:28:55
+ * @date 2025-03-29 17:11:32
  */
 @Mapper
 public interface ArticleMapper extends BaseMapper<Article> {
